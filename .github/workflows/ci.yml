@@ -1,0 +1,15 @@
+name: CI Pipeline
+on: [push]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Compilar e testar
+        run: |
+          gcc -o age_calculator src/main.c
+          gcc -o run_tests tests/test_age_calculator.c
+          ./run_tests
+      - name: Build Docker
+        run: docker build -t idade-calculator .
